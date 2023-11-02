@@ -11,7 +11,7 @@ import java.util.Map;
 public class Main {
 
     TimeChecker checker;
-    Javalin app;
+    private Javalin app;
 
     private Map<String, String> daysOfWeek = Map.of(
             "Montag", "Maandag",
@@ -40,10 +40,11 @@ public class Main {
         return Javalin.create().start(7070);
     }
 
-    private static void renderPage(Context ctx) {
+    private void renderPage(Context ctx) {
         Page page = new Page();
         page.name = "Henk";
         page.aantalKonijnen = 3;
+        page.dag = daysOfWeek.get(checker.getCurrentDay());
         ctx.render("hello.jte", Collections.singletonMap("page", page));
     }
 }
