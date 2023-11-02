@@ -12,6 +12,27 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <jte.version>3.1.4</jte.version>
+        <javalin.version>5.6.3</javalin.version>
+        <javalin-rendering.version>5.6.2</javalin-rendering.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>gg.jte</groupId>
+            <artifactId>jte</artifactId>
+            <version>${jte.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin</artifactId>
+            <version>${javalin.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin-rendering</artifactId>
+            <version>${javalin-rendering.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>
