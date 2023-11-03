@@ -3,9 +3,7 @@ package app;
 import io.javalin.Javalin;
 import io.javalin.http.Context;
 
-
 import java.util.Collections;
-import java.util.Map;
 
 public class Main {
 
@@ -24,20 +22,19 @@ public class Main {
     }
 
     private void initJavalin() {
-        Javalin app = Javalin.create().start(7070);
+        Javalin app = Javalin.create().start(8080);
         app.get("/", this::renderPage);
     }
 
     private void renderPage(Context ctx) {
+
+        checker.isChocolademelkTijd();
         Page page = new Page();
         page.name = "Henk";
         page.aantalKonijnen = 3;
         page.dag = checker.getCurrentDay();
         page.chocoladeMelkTijd = checker.getChocola();
         page.chocoTime = checker.getChocoladeMelkTime();;
-        if (checker.isChocolademelkTijd()) {
-
-        }
 
         ctx.render("hello.jte", Collections.singletonMap("page", page));
     }
