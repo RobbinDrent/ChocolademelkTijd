@@ -4,7 +4,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.TextStyle;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -19,7 +19,8 @@ public final class TimeChecker {
             "Samstag", "Zaterdag",
             "Sonntag", "Zondag"
     );
-    private final String[] WORKING_DAYS = {"Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"};
+//    private final String[] WORKING_DAYS = {"Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag"};
+    private final List<String> WEEKEND = List.of("Zaterdag", "Zondag");
     private final LocalTime WORK_START = LocalTime.parse("09:00:00");
     private final LocalTime EARLY_TIME = LocalTime.parse("13:00:00");
     private final LocalTime END_TIME = LocalTime.parse("17:00:00");
@@ -51,7 +52,7 @@ public final class TimeChecker {
         return DAYS_OF_THE_WEEK.get(germanDay);
     }
 
-    public boolean checkTime() {
+    private boolean checkTime() {
        LocalTime now = LocalTime.now();
 
        if (now.isAfter(EARLY_TIME) && now.isBefore(END_TIME)) {
@@ -66,23 +67,23 @@ public final class TimeChecker {
        } else {
            chocola = "Er is iets aparts gebeurt!";
        }
-
        return false;
     }
 
-    public boolean isTodayAWorkingDay() {
-        return Arrays.stream(WORKING_DAYS)
-                .anyMatch(day -> day.equalsIgnoreCase(getCurrentDay()));
+    private boolean todayIsWeekend() {
+        return WEEKEND.contains(getCurrentDay());
     }
 
+
     public boolean isChocolademelkTijd() {
-        if (isTodayAWorkingDay() && checkTime()) {
+        if (!todayIsWeekend() && checkTime()) {
             this.chocoladeMelkTime = "CHOCOLADEMELKTIJD!!!";
             return true;
-        } else {
-            this.chocoladeMelkTime = "Helaas";
-            return false;
+        } else if (todayIsWeekend()) {
+            this.chocola = "Het is weekend, doe wat je niet laten kan!";
         }
+        this.chocoladeMelkTime = "Helaas";
+         return false;
     }
 
     public String getChocola() {
